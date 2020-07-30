@@ -1,0 +1,71 @@
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script src="./promise.js"></script>
+  <script>
+    /**
+     * promise的好处
+     * 指定回调函数的方式更灵活
+     * 旧的：必须在启动异步任务前指定
+     * promise可以在异步任务执行完后，再指定回调函数
+     * 
+     * 支持链式调用，解决回调地狱问题
+     * 终极方案：async + await
+     */
+    // const p = new Promise((resovle, reject) => {
+    //   setTimeout(() => {
+    //     resovle(1)
+    //     // reject(2)
+    //     // throw 3
+    //   }, 100);
+    // })
+    // p.then(value => { // 回调函数，promise内部实现 .then方法的执行一定会是在一系列操作执行完成后再执行
+    //   console.log("onResolved1:", value)
+    // }, reason => {
+    //   console.log("onRejected1:", reason)
+    // })
+    // p.then(value => { // 回调函数，promise内部实现 .then方法的执行一定会是在一系列操作执行完成后再执行
+    //   console.log("onResolved2:", value)
+    // }, reason => {
+    //   console.log("onRejected2:", reason)
+    // })
+
+    // const p = new Promise((resolve, reject) => {
+    //   setTimeout(() => {
+    //     // resolve(1)
+    //     reject(2)
+    //   }, 100);
+    // }).then(value => {
+    //   console.log("onResolved1:", value)
+    //   return 3
+    // }, reason => {
+    //   console.log("onRejected1:", reason)
+    //   throw 4
+    // }).then(value => {
+    //   console.log("onResolved2:", value)
+    // }, reason => {
+    //   console.log("onRejected2:", reason)
+    // })
+
+    const p1 = Promise.resolve(1)
+    const p2 = Promise.reject(2)
+    const p3 = Promise.resolve(Promise.reject(4))
+    p1.then(value => {
+      console.log('p1: ', value)
+    })
+    p2.catch(reason => {
+      console.log('p2: ', reason)
+    })
+    p3.catch(value => {
+      console.log('p3: ', value)
+    })
+  </script>
+</body>
+
+</html>
